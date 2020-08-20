@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="movie.admin.movie.mybatis.MovieMapper">
+	<insert id="insertMovie" parameterType="movieDTO">
+		insert into movie values(movie_seq.nextval, #{title}, #{director}, #{genre}, #{actor}, #{actor2},
+		#{actor3}, #{actor4}, #{actor5}, #{actor6}, #{story}, #{grade}, #{time}, #{opendate_year}, 
+		#{opendate_month}, #{opendate_day}, 0, 0, #{trailer}, #{state}, #{image})
+	</insert>
+	
+	<delete id="deleteMovie" parameterType="int">
+		delete from movie where movie_num=#{movie_num}
+	</delete>
+	
+	<select id="movieList" resultType="movieDTO" parameterType="java.util.Map">
+		select * from (select rownum rn, A.* from (select * from movie order by movie_num desc)A) where rn between #{startRow} and #{endRow}
+	</select>
+	
+	<select id="movieView" resultType="movieDTO" parameterType="int">
+		select * from movie where movie_num = #{movie_num}
+	</select>
+	
+	<update id="updateMovie" parameterType="movieDTO">
+		update product set title=#{title}, director=#{director}, genre=#{genre}, actor=#{actor}, actor2=#{actor2}, 
+		actor3=#{actor3}, actor4=#{actor4}, actor5=#{actor5}, actor6=#{actor6}, story=#{story}, grade=#{grade},
+		time=#{time}, opendate_year=#{opendate_year}, opendate_month=#{opendate_month},
+		opendate_day=#{opendate_day}, trailer=#{trailer}, state=#{state}, image=#{image} 
+		where movie_num=#{movie_num} 
+	</update>
+	
+	<select id="countMovie" resultType="int">
+		select count(*) from movie
+	</select>
+	
+	<select id="listmovie" resultType="movieDTO">
+		select * from movie
+	</select>
+	
+	<select id="namemovie" parameterType="int" resultType="String">
+		select title from movie where movie_num=#{movie_num}
+	</select>
+</mapper>

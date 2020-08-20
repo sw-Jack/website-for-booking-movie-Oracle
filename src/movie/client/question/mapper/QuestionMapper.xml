@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="movie.client.question.mapper.QuestionMapper">
+	
+	<insert id="insertQuestion" parameterType="cquestionDTO">
+		insert into question values(question_seq.nextval, #{title}, 
+		#{name}, #{content}, sysdate, question_seq.nextval, #{re_level}, #{re_step},#{user_num})
+	</insert>
+	
+	<select id= "listQuestion" resultType="cquestionDTO" parameterType="int">
+		select * from question where user_num = #{user_num}
+	</select>
+	
+	<select id="contentQuestion" resultType="cquestionDTO" parameterType="int">
+		select * from question where question_num = #{question_num}
+	</select>
+	
+	<update id="updateQuestion" parameterType="cquestionDTO">
+		update question set title=#{title}, content=#{content} where question_num = #{question_num}
+	</update>
+	
+	<delete id="deleteQuestion2" parameterType="int">
+		delete from question where question_num = #{question_num}       
+	</delete>
+	
+	<select id="getcquestion" parameterType="String" resultType="cquestionDTO">
+		select * from question where name=#{name}
+	</select>
+</mapper>

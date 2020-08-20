@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+	
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix">
+			<value>WEB-INF/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+	</bean>
+	
+	<context:annotation-config />
+	
+	<bean class="movie.admin.controller.AdminController"/>
+	<bean class="movie.client.controller.ClientController"/>
+	
+	<bean id="cinemaDAO" class="movie.admin.cinema.dao.CinemaDAOImpl"/>
+	<bean id="theaterDAO" class="movie.admin.theater.dao.TheaterDAOImpl"/>
+	<bean id="movieDAO" class="movie.admin.movie.dao.MovieDAOImpl"/>
+	<bean id="memberDAO" class="movie.admin.member.dao.MemberDAOImpl"/>
+	<bean id="boardDAO" class="movie.admin.board.dao.BoardDAOImpl"/>
+	<bean class="movie.admin.question.dao.QuestionDAOImpl" id="questionDAO"/>
+	<bean class="movie.admin.category.dao.CategoryDAOImpl" id="categoryDAO"/>
+	<bean class="movie.admin.product.dao.ProductDAOImpl" id="productDAO"/>
+	<bean id="cquestionDAO" class="movie.client.question.dao.QuestionDAOImpl"/>
+	<bean id="creditDAO" class="movie.client.reservation.dao.CreditDAOImpl"/>
+</beans>

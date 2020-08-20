@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="movie.admin.movie.mapper.MovieMapper">
+	<insert id="insertMovie" parameterType="movieDTO">
+		insert into movie values(movie_seq.nextval, #{title}, #{director}, #{genre}, #{actor}, #{actor2},
+		#{actor3}, #{actor4}, #{actor5}, #{actor6}, #{story}, #{grade}, #{time}, #{opendate_year}, 
+		#{opendate_month}, #{opendate_day}, 0, 0, #{trailer}, #{state}, #{image}, #{actorimage1}, 
+		#{actorimage2}, #{actorimage3}, #{actorimage4}, #{actorimage5}, #{actorimage6},
+		#{actor1role}, #{actor2role},#{actor3role},#{actor4role},#{actor5role},#{actor6role},
+		#{actor1past}, #{actor2past}, #{actor3past}, #{actor4past}, #{actor5past}, #{actor6past})
+	</insert>
+	
+	<delete id="deleteMovie" parameterType="int">
+		delete from movie where movie_num=#{movie_num}
+	</delete>
+	
+	<select id="movieList" resultType="movieDTO" parameterType="java.util.Map">
+		select * from (select rownum rn, A.* from (select * from movie order by movie_num desc)A) where rn between #{startRow} and #{endRow}
+	</select>
+	
+	<select id="movieView" resultType="movieDTO" parameterType="int">
+		select * from movie where movie_num = #{movie_num}
+	</select>
+	
+	<update id="updateMovie" parameterType="movieDTO">
+		update movie set title=#{title}, director=#{director}, genre=#{genre}, actor=#{actor}, actor2=#{actor2}, 
+		actor3=#{actor3}, actor4=#{actor4}, actor5=#{actor5}, actor6=#{actor6}, story=#{story}, grade=#{grade},
+		time=#{time}, opendate_year=#{opendate_year}, opendate_month=#{opendate_month},
+		opendate_day=#{opendate_day}, trailer=#{trailer}, state=#{state}, image=#{image}, actorimage1=#{actorimage1},
+		actorimage2=#{actorimage2}, actorimage3=#{actorimage3}, actorimage4=#{actorimage4}, actorimage5=#{actorimage5},
+		actorimage6=#{actorimage6}, actor1role=#{actor1role}, actor2role=#{actor2role}, actor3role=#{actor3role},
+		actor4role=#{actor4role}, actor5role=#{actor5role}, actor6role=#{actor6role}, actor1past=#{actor1past},
+		actor2past=#{actor2past}, actor3past=#{actor3past}, actor4past=#{actor4past}, actor5past=#{actor5past},
+		actor6past=#{actor6past}
+		where movie_num=#{movie_num} 
+	</update>
+	
+	<select id="countMovie" resultType="int">
+		select count(*) from movie
+	</select>
+	
+	<select id="listmovie" resultType="movieDTO">
+		select * from movie
+	</select>
+	
+	<select id="namemovie" parameterType="int" resultType="String">
+		select title from movie where movie_num=#{movie_num}
+	</select>
+	
+	<select parameterType="java.util.Map" id="findmovie" resultType="movieDTO"> 
+		select * from movie where ${search} like #{searchString} 
+	</select>
+	
+	<select id="cmovieList" resultType="movieDTO">
+		select * from movie order by movie_num desc
+	</select>
+	
+	<select id="cmovieView" resultType="movieDTO" parameterType="int">
+		select * from movie where movie_num = #{movie_num}
+	</select>
+	
+	<select id="actorView" resultType="movieDTO">
+		select * from movie where movie_num = #{movie_num}
+	</select>
+	
+	<update id="inputscoreply" parameterType="movieDTO">
+		update movie set score=#{score}, reply=#{reply} where movie_num=#{movie_num}
+	</update>
+	
+
+	<select parameterType="int" id="listreview" resultType="reviewDTO">
+		select * from review where movie_num=#{movie_num} order by review_num desc
+	</select>
+
+	<insert parameterType="reviewDTO" id="insertreview">
+		insert into review
+		values(review_seq.nextval,#{review_writer},sysdate,#{movie_num},#{review_score},#{review_content})
+	</insert>
+	
+	<select parameterType="String" id="memberimage" resultType="String">
+		select member_image from member where id=#{id}
+	</select>
+	
+	<select id="avgscore" parameterType="int" resultType="reviewDTO">
+		select * from review where movie_num=#{movie_num}
+	</select>
+	
+	<update id="scoreup" parameterType="java.util.Map">
+		update movie set score=#{score} where movie_num=#{movie_num}
+	</update>
+	
+	<select id="getReview" parameterType="int" resultType="reviewDTO">
+		select * from review where review_num=#{review_num}
+	</select>
+	
+	<update id="updateReview" parameterType="reviewDTO">
+		update review set review_score=#{review_score},review_content=#{review_content} where review_num = #{review_num}
+	</update>
+	
+	<delete id="deleteReview" parameterType="int">
+		delete from review where review_num = #{review_num}
+	</delete>
+	
+	<update id="upresercount" parameterType="int">
+		update movie set resercount=resercount+1 where movie_num=#{movie_num}
+	</update>
+	
+</mapper>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE configuration     
+	PUBLIC "-//mybatis.org//DTD Config 3.0//EN"     
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<properties resource="movie/admin/cinema/dao/db.properties" />
+	<typeAliases>
+		<typeAlias alias="cinemaDTO" type="movie.admin.cinema.dto.CinemaDTO" />
+		<typeAlias alias="theaterDTO" type="movie.admin.theater.dto.TheaterDTO" />
+		<typeAlias alias="movieDTO" type="movie.admin.movie.dto.MovieDTO"/>
+		<typeAlias alias="memberDTO" type="movie.admin.member.dto.MemberDTO"/>
+		<typeAlias alias="theater_playDTO" type="movie.admin.theater.dto.Theater_playDTO"/>
+		<typeAlias alias="theater_seatDTO" type="movie.admin.theater.dto.Theater_seatDTO"/>
+		<typeAlias alias="noticeDTO" type="movie.admin.board.dto.NoticeDTO"/>
+		<typeAlias type="movie.admin.question.dto.QuestionDTO" alias="questionDTO"/>
+		<typeAlias type="movie.admin.category.dto.CategoryDTO" alias="categoryDTO"/>
+		<typeAlias type="movie.admin.product.dto.ProductDTO" alias="productDTO"/>
+		<typeAlias type="movie.admin.member.dto.AdminDTO" alias="adminDTO"/>
+		<typeAlias type="movie.client.question.dto.QuestionDTO" alias="cquestionDTO"/>
+		<typeAlias type="movie.admin.movie.dto.ReviewDTO" alias="reviewDTO"/>
+		<typeAlias alias="creditDTO" type="movie.client.reservation.dto.CreditDTO"/>
+	</typeAliases>
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${driver}" />
+				<property name="url" value="${url}" />
+				<property name="username" value="${username}" />
+				<property name="password" value="${password}" />
+			</dataSource>
+		</environment>
+	</environments>
+
+
+	<mappers>
+		<mapper resource="movie/admin/cinema/mapper/CinemaMapper.xml" />
+		<mapper resource="movie/admin/theater/mapper/TheaterMapper.xml" />
+		<mapper resource="movie/admin/movie/mapper/MovieMapper.xml"/>
+		<mapper resource="movie/admin/member/mapper/MemberMapper.xml"/>
+		<mapper resource="movie/admin/board/mapper/BoardMapper.xml"/>
+		<mapper resource="movie/admin/question/mapper/QuestionMapper.xml"/>
+		<mapper resource="movie/admin/category/mapper/CategoryMapper.xml"/>
+		<mapper resource="movie/admin/product/mapper/ProductMapper.xml"/>
+		<mapper resource="movie/client/question/mapper/QuestionMapper.xml"/>
+		<mapper resource="movie/client/reservation/mapper/CreditMapper.xml"/>
+	</mappers>
+</configuration>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		
+<mapper namespace="movie.admin.member.ibatis.MemberMapper">
+
+	<select id="listMember"  resultType="memberDTO">
+		select * from member
+	</select>
+	
+	<select id="getMember" parameterType="int" resultType="memberDTO">
+		select * from member where user_num = #{user_num}
+	</select>
+	
+	<select id="findMember" resultType="memberDTO" parameterType="java.util.Map">
+		select * from member where ${search} = #{searchString}
+	</select>
+	
+	<update id= "updateMember" parameterType="memberDTO">
+		update member set hp1=#{hp1}, hp2=#{hp2}, hp3=#{hp3} ,point=#{point} where user_num=#{user_num}
+	</update>
+	
+	<delete id="deleteMember" parameterType="int">
+		delete from member where user_num=#{user_num}
+	</delete>
+
+</mapper>

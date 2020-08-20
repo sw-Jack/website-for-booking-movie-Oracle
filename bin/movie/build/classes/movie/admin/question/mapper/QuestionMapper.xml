@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper     
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+	
+<mapper namespace="movie.admin.question.mapper.QuestionMapper">
+	<select id="questionList" resultType="questionDTO" parameterType="java.util.Map">
+		select * from (select rownum rn, A.* from (select * from question order by re_group desc, re_step asc)A) where rn between #{startRow} and #{endRow}
+	</select>
+	<select id="getQuestion" parameterType="int" resultType="questionDTO">
+		select * from question where question_num=#{question_num}
+	</select>
+	<select id="pageCount" resultType="int">
+		select count(*) from question
+	</select>
+	<delete id="deleteQuestion" parameterType="int">
+		delete from question where question_num=#{question_num}
+	</delete>
+	<insert id="answerQuestion" parameterType="questionDTO">
+		insert into question values(question_seq.nextval, #{title}, 
+		#{name}, #{content}, sysdate, #{re_group}, #{re_level}, #{re_step})
+	</insert>
+	<update id="answer" parameterType="questionDTO">
+		update question set re_step = re_step +1 where re_step > #{re_step} and re_group=#{re_group}
+	</update>
+	<select id="selectQuestion" parameterType="questionDTO">
+		select max(question_num) from question
+	</select>
+</mapper>

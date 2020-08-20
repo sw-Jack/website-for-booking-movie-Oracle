@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		
+<mapper namespace="movie.admin.member.ibatis.MemberMapper">
+
+	<select id="listMember"  resultType="memberDTO">
+		select * from member
+	</select>
+	
+	<select id="getMember" parameterType="int" resultType="memberDTO">
+		select * from member where user_num = #{user_num}
+	</select>
+	
+	<select id="findMember" resultType="memberDTO" parameterType="java.util.Map">
+		select * from member where ${search} = #{searchString}
+	</select>
+	
+	<update id= "updateMember" parameterType="memberDTO">
+		update member set hp1=#{hp1}, hp2=#{hp2}, hp3=#{hp3} ,point=#{point} where user_num=#{user_num}
+	</update>
+	
+	<delete id="deleteMember" parameterType="int">
+		delete from member where user_num=#{user_num}
+	</delete>
+	
+	<select id="checkadminId" parameterType="String" resultType="adminDTO">
+		select * from cinema_admin where admin_id = #{admin_id} 
+	</select>
+
+	<insert id="adminInsert" parameterType="adminDTO">
+		insert into cinema_admin values(admin_seq.nextval,#{admin_name},#{cinema_num},#{admin_passwd},#{admin_tel},#{admin_id})
+	</insert>
+	
+	<delete id="adminDelete" parameterType="int">
+		delete from cinema_admin where cinema_num = #{cinema_num}
+	</delete>
+	
+	<select id="adminLogin" parameterType="java.util.Map" resultType="adminDTO">
+		select * from cinema_admin where admin_id=#{admin_id} and admin_passwd=#{admin_passwd}
+	</select>
+	
+	<select id="getAdmin" parameterType="int" resultType="adminDTO">
+		select * from cinema_admin where cinema_num=#{cinema_num}
+	</select>
+	
+	<select id="idgetAdmin" parameterType="String" resultType="adminDTO">
+		select * from cinema_admin where admin_id=#{admin_id}
+	</select>
+	
+	<select id="clientcheckid" parameterType="String" resultType="memberDTO">
+		select * from member where id=#{id}
+	</select>
+	
+	<insert id="insertmember" parameterType="memberDTO">
+		insert into member values(user_seq.nextval,#{id},#{name},#{passwd},#{email},#{birth_year},#{birth_month},#{birth_day},#{hp1},#{hp2},#{hp3},#{adrr_code},#{adrr},#{point},#{addr_detail},#{member_image})
+	</insert>
+	
+	<select id="loginmember" parameterType="java.util.Map" resultType="MemberDTO">
+		select * from member where id=#{id} and passwd=#{passwd}
+	</select>
+	
+	<select id="getMemberInfo" parameterType="String" resultType="memberDTO">
+		select * from member where id=#{id}
+	</select>
+	
+	<update id="updateProfileImage" parameterType="java.util.Map">
+		update member set member_image=#{member_image} where user_num=#{user_num}
+	</update>
+	
+	<update id="updateProfile" parameterType="memberDTO">
+		update member set email=#{email}, hp1=#{hp1}, hp2=#{hp2}, hp3=#{hp3}, adrr_code=#{adrr_code}, adrr=#{adrr}, addr_detail=#{addr_detail} where user_num=#{user_num}
+	</update>
+	
+	<update id="updatepasswd" parameterType="java.util.Map"> 
+		update member set passwd=#{passwd} where id=#{id} 
+	</update>
+	
+	<select id="findPasswd" parameterType="java.util.Map" resultType="String">
+		select passwd from member where id=#{id} and email=#{email} and hp1=#{hp1} and hp2=#{hp2} and hp3=#{hp3}
+	</select>
+	
+	<select id="findid" parameterType="java.util.Map" resultType="String">
+		select id from member where name=#{name} and email=#{email}
+	</select>
+	
+	<select id="checkmail" parameterType="String" resultType="memberDTO">
+		select * from member where email=#{email}
+	</select>
+</mapper>

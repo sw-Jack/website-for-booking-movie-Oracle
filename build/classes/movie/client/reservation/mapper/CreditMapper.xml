@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="movie.client.reservation.mapper.CreditMapper">
+	<insert id="insertcredit" parameterType="creditDTO">
+		insert into credit values(credit_seq.nextval,#{play_num},#{seat_row},#{seat_num},#{buyer},#{hp1},#{hp2},#{hp3})
+	</insert>
+	
+	<select id="getcredit" resultType="creditDTO" parameterType="java.util.Map">
+		select * from credit where buyer=#{buyer} and hp1=#{hp1} and hp2=#{hp2} and hp3=#{hp3}
+	</select>
+	
+	<select id="memgetcredit" resultType="creditDTO" parameterType="String">
+		select * from credit where buyer=#{buyer}
+	</select>
+	
+	<select id="getcreditdto" resultType="creditDTO" parameterType="int">
+		select * from credit where credit_num = #{credit_num}
+	</select>
+	
+	<delete id="refundcredit" parameterType="int">
+		delete from credit where credit_num=#{credit_num}
+	</delete>
+</mapper>

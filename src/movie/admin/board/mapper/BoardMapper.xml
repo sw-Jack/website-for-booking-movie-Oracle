@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper     
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+	
+<mapper namespace="movie.admin.board.mapper.BoardMapper">
+
+<insert id="noticeInsert" parameterType="noticeDTO">
+	insert into notice values(notice_seq.nextval,#{title},#{name},#{content},sysdate)
+</insert>
+<select id="noticeList" resultType="noticeDTO">
+	select * from notice order by notice_num desc
+</select>
+<select id="noticeGet" parameterType="int" resultType="noticeDTO">
+	select * from notice where notice_num=#{notice_num}
+</select>
+<delete id="noticeDelete" parameterType="int">
+	delete from notice where notice_num=#{notice_num}
+</delete>
+<update id="noticeUpdate" parameterType="noticeDTO">
+	update notice set title=#{title},content=#{content} where notice_num=#{notice_num}
+</update>
+<!-- 공지사항 -->
+</mapper>

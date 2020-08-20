@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper     
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+	
+<mapper namespace="movie.admin.theater.mapper.TheaterMapper">
+
+<insert id="insertTheater" parameterType="theaterDTO">
+	insert into theater values(#{theater_stage},#{theater_grade},#{theater_seatcount},#{cinema_num})
+</insert>
+
+<insert id="insertTheaterplay" parameterType="theater_playDTO">
+	insert into theater_play values(play_num.nextval,#{play_year},#{play_month},#{play_day},#{start_time},#{end_time},#{movie_num},#{cinema_num},#{theater_stage})
+</insert>
+
+<select id="timecalc" resultType="theater_playDTO" parameterType="java.util.Map">
+	select * from theater_play where theater_stage=#{theater_stage} and play_year=#{play_year} and play_month=#{play_month} and play_day=#{play_day} and cinema_num=#{cinema_num} order by start_time asc
+</select>
+
+<select id="listTheater" resultType="theaterDTO" parameterType="int">
+	select * from theater where cinema_num=#{cinema_num} order by theater_stage asc
+</select>
+<delete id="deleteTheater" parameterType="int">
+	delete from theater where cinema_num=#{cinema_num}
+</delete>
+<select id="alllistTheater" resultType="theaterDTO">
+	select * from theater
+</select>
+
+<select id="getTheater" parameterType="java.util.Map" resultType="theaterDTO"> 
+select * from theater where cinema_num=#{cinema_num} and theater_stage=#{theater_stage} 
+</select>
+
+<delete id="deleteTheater1" parameterType="java.util.Map"> 
+delete from theater where cinema_num=#{cinema_num} and theater_stage=#{theater_stage}
+</delete>
+
+<update id="updateTheater" parameterType="theaterDTO" > 
+update theater set theater_grade=#{theater_grade}, theater_seatcount=#{theater_seatcount} where cinema_num=#{cinema_num} and theater_stage=#{theater_stage} 
+</update>
+
+<select id="countTheater" parameterType="int" resultType="int">
+select cinema_size from cinema where cinema_num=#{cinema_num}
+</select>
+
+<select id="checkTheater" parameterType="java.util.Map" resultType="theaterDTO">
+select * from theater where theater_stage=#{theater_stage} and cinema_num=#{cinema_num}
+</select>
+
+<select id="getSize" parameterType="int" resultType="int">
+select count(*) from theater where cinema_num=#{cinema_num}
+</select>
+
+</mapper>

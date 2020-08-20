@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="movie.admin.product.mapper.ProductMapper">
+	
+	<insert id="insertProd" parameterType="productDTO">
+		insert into product values(#{pcategory}, product_seq.nextval,#{pname}, 
+		#{pprice}, #{pqty}, #{pimage}, #{ppoint}, #{pcontent})
+	</insert>
+
+	<select id="listProd" resultType="productDTO">
+		select * from product
+	</select>
+	
+	<select id="getProd" resultType="productDTO" parameterType="int">
+		select * from product where pnum = #{pnum}
+	</select>
+	
+	<update id="updateProd" parameterType="productDTO">
+		update product set pname=#{pname}, pimage=#{pimage}, pqty=#{pqty}, pprice=#{pprice},
+		pcontent=#{pcontent}, ppoint=#{ppoint} where pnum=#{pnum}
+	</update>
+	
+	<delete id="deleteProd" parameterType="int">
+		delete from product where pnum = #{pnum}
+	</delete>
+	
+	<select id="findProd" resultType="productDTO" parameterType="java.util.Map">
+		select * from product where pcategory=#{search} and pname=#{searchString}
+	</select>
+
+
+</mapper>
